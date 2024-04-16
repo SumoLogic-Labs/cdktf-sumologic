@@ -1,0 +1,89 @@
+apply plugin: "java-library"
+apply plugin: "maven-publish"
+apply plugin: "signing"
+
+repositories {
+    mavenCentral()
+}
+
+group = "com.sumologic.cdktf"
+description = "CDKTF bindings for Sumo Logic Terraform provider"
+version = "1.0.2.29.0"
+
+dependencies {
+    implementation("com.hashicorp:cdktf:0.20.7")
+    implementation("software.constructs:constructs:10.3.0")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+tasks.withType(Javadoc) {
+    failOnError false
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from(sourceSets.main.allJava)
+    archiveClassifier.set('sources')
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier.set('javadoc')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId(project.group)
+            version(project.version)
+
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/SumoLogic-Labs/cdktf-sumologic'
+
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'goledzki'
+                        name = 'Greg Oledzki'
+                        organization = 'Sumo Logic'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:SumoLogic-Labs/cdktf-sumologic.git'
+                    developerConnection = 'scm:git:git@github.com:SumoLogic-Labs/cdktf-sumologic.git'
+                    url = 'https://github.com/SumoLogic-Labs/cdktf-sumologic'
+                    tag = 'HEAD'
+                }
+            }
+
+            from(components.java)
+            artifact(sourcesJar)
+            artifact(javadocJar)
+        }
+    }
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username project.findProperty("nexus_username") ?: ""
+                password project.findProperty("nexus_password") ?: ""
+            }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.maven
+}

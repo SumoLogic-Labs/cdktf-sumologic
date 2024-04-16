@@ -1,0 +1,2 @@
+rootProject.name = "cdktf-sumologic"
+include("lib")
