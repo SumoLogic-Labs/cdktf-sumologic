@@ -1,0 +1,6 @@
+{
+  "cdktf": "0.20.7",
+  "providers": {
+    "sumologic": "~> 2.29"
+  }
+}
