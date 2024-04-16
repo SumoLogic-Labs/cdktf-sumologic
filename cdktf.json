@@ -1,0 +1,12 @@
+{
+  "language": "java",
+  "app": "./gradlew run",
+  "projectId": "12b3dac6-8e2b-42ad-8144-7b0985ca372e",
+  "sendCrashReports": "true",
+  "codeMakerOutput": "com",
+  "terraformProviders": [
+    "sumologic/sumologic@~> 2.29"
+  ],
+  "terraformModules": [],
+  "context": {}
+}
