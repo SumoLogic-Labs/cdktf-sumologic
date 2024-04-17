@@ -19,11 +19,11 @@ signing.gnupg.executable=gpg
 signing.gnupg.keyName=${id_of_imported_sumoapi_key}
 signing.gnupg.passphrase=${password_for_imported_sumoapi_key}
 ```
-4. Update the version in `lib/build.gradle`, make sure the Terraform
+4. in `lib/` directory run `cdktf get`
+5. Update the version in `lib/build.gradle`, make sure the Terraform
 provider version is the suffix.
-5. `./gradlew build publish`
-6. Go to https://oss.sonatype.org/index.html#stagingRepositories, search for com.sumologic, close and release your repo. NOTE: If you had to login, reload the URL. It doesn't take you to the right page post-login.
-7. Commit and push all the changes.
-
+6. `./gradlew build publish`
+7. Go to https://oss.sonatype.org/index.html#stagingRepositories, search for com.sumologic, close and release your repo. NOTE: If you had to login, reload the URL. It doesn't take you to the right page post-login.
+8. Commit and push all the changes.
 
 
