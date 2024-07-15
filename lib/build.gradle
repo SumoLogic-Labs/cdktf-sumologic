@@ -11,7 +11,7 @@ description = "CDKTF bindings for Sumo Logic Terraform provider"
 version = "3.0.2.29.0"
 
 dependencies {
-    api("com.hashicorp:cdktf:0.20.7")
+    api("com.hashicorp:cdktf:0.21.0-pre.107")
     api("software.constructs:constructs:10.3.0")
 }
 
